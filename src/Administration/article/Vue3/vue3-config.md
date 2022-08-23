@@ -3,9 +3,7 @@
 ---
 ```js
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production'
-    ? './'
-    : '/'
+    publicPath: './'
 }
 ```
 ##### 2.修改路由配置，router/index.js

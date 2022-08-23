@@ -1,10 +1,8 @@
 <template>
   <div class="sub-body" :style="{ width: detailsArt.screenW }">
     <div class="markdown-body" :style="{ height: detailsArt.screenH, width: detailsArt.screenMdW }">
-      <div id="md" v-highlight>
-         <component :is="detailsArt.parameter"></component>
-         <!-- <wx-request></wx-request> -->
- 
+      <div v-highlight>
+          <component :is="detailsArt.parameter"></component>
       </div>
     </div>
   </div>
@@ -13,7 +11,6 @@
 import { useRoute } from "vue-router";
 import { ElLoading } from "element-plus";
 import { userArticle } from "@/store/article";
-
 const articleStore = userArticle();
 const route = useRoute();
 
@@ -33,6 +30,7 @@ onBeforeMount(() => {
   detailsArt.screenAW = (width - 300) / 2.1 + "px";
   articleStore.labelchang(false);
   detailsArt.parameter = typeof route.query.mdId === "string" ? route.query.mdId : "";
+  // detailsArt.parameter = "hello"
   const loading = ElLoading.service({
     lock: true,
     text: "Loading",
@@ -54,9 +52,7 @@ onBeforeMount(() => {
     padding-right: 40px;
     overflow-y: scroll; /*只是y方向*/
   }
-  #md{
-    height: 1000px;
-  }
+
   ::-webkit-scrollbar {
     width: 4px;
   }
@@ -77,5 +73,4 @@ onBeforeMount(() => {
     background-color: #aaa;
   }
 }
-
 </style>

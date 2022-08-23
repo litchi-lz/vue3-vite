@@ -1,4 +1,4 @@
-代码块高亮样式
+/* 代码块高亮样式
 pre code.hljs {
     display: block;
     overflow-x: auto;
@@ -81,7 +81,7 @@ pre code.hljs {
     color: #fff;
     font-weight: bolder;
   }
-  
+   */
 
 
 

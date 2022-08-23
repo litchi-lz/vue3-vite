@@ -11,27 +11,27 @@ export const userPaging = defineStore(Names.PAGING, {
         return {
             WeChatList: {
                 currentPage: 1,    //当前页数
-                totaltPage: null,  //总页数
+                totaltPage: null,  //总条数
                 pageSize: 5,
             },
             Vue2List: {
                 currentPage: 1,    //当前页数
-                totaltPage: null,  //总页数
+                totaltPage: null,  //总条数
                 pageSize: 5,
             },
             Vue3List: {
                 currentPage: 1,    //当前页数
-                totaltPage: null,  //总页数
+                totaltPage: null,  //总条数
                 pageSize: 5,
             },
             CSS3List: {
                 currentPage: 1,    //当前页数
-                totaltPage: null,  //总页数
+                totaltPage: null,  //总条数
                 pageSize: 5,
             },
             H5List: {
                 currentPage: 1,    //当前页数
-                totaltPage: null,  //总页数
+                totaltPage: null,  //总条数
                 pageSize: 5,
             },
             Universal: {

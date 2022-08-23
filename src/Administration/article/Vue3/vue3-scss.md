@@ -1,3 +1,4 @@
+##### 老版安装sass
 #####  VUE 提示 Failed to resolve Loader: sass-loader
 
 
@@ -42,7 +43,11 @@ npm i -D sass-loader@8.x // 安装
 npm i -D node-sass@4.14.1 // 安装
 
 ```
-
+--- 
+##### 新版安装sass
+```
+npm i -D sass
+```
 ---
 
 ##### 同理也可能是less-loader导致的

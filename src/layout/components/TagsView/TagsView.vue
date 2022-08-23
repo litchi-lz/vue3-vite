@@ -5,6 +5,15 @@
         <el-tab-pane class="tabPan" :label="item.mold" :name="item.type"></el-tab-pane>
       </template>
     </el-tabs>
+    <div>
+      <div class="mt-4 search">
+        <el-input v-model="searchValue" placeholder="请输入关键字" @input="searchFor" class="w-50 m-2">
+          <template #append>
+            <el-button @click="searchInfo" :icon="Search" />
+          </template>
+        </el-input>
+      </div>
+    </div>
   </div>
   <div class="tags bolog-title" :style="{ width: list.titleW }" v-show="!list.labelBar">
     <div class="title-box">
@@ -18,6 +27,9 @@ import "@/assets/font/font-icon/iconfont.css";
 import { useRouter } from "vue-router";
 import { ElLoading } from "element-plus";
 import { userArticle } from "@/store/article";
+import { Search } from "@element-plus/icons-vue";
+import { getCurrentInstance, ComponentInternalInstance } from "vue";
+
 type listType = {
   activeName: string;
   screenW: string;
@@ -28,6 +40,8 @@ type listType = {
 };
 const router = useRouter();
 const articleStore = userArticle();
+const searchValue = ref("");
+const { appContext } = getCurrentInstance() as ComponentInternalInstance;
 const list = reactive<listType>({
   activeName: "",
   screenW: "0",
@@ -55,14 +69,13 @@ watchEffect(() => {
   list.labelBar = articleStore.tagSwitch;
   list.blogTitle = articleStore.blogTitle;
   let cache = localStorage.getItem("articleInfo");
-  console.log(cache);
   if (!list.blogTitle && cache) {
     list.blogTitle = JSON.parse(localStorage.getItem("articleInfo") || "").blogeTitle;
   }
 });
 const handleClick = (TabsPaneContext: any) => {
   list.activeName = TabsPaneContext.props.name;
-  articleStore.alterType(list.activeName)
+  articleStore.alterType(list.activeName);
   const loading = ElLoading.service({
     lock: true,
     text: "Loading",
@@ -71,6 +84,15 @@ const handleClick = (TabsPaneContext: any) => {
   setTimeout(() => {
     loading.close();
   }, 300);
+};
+
+const searchFor = () => {
+  if(searchValue.value == ''){  //crux为0的时候触发
+     appContext.config.globalProperties.$mitt.emit("searchEvent", {vaule:searchValue.value,crux:0}); 
+  }
+};
+const searchInfo = () => {
+  appContext.config.globalProperties.$mitt.emit("searchEvent", {vaule:searchValue.value,crux:1});
 };
 const goBack = () => {
   const loading = ElLoading.service({
@@ -87,10 +109,12 @@ const goBack = () => {
 <style lang="scss" scoped>
 .tags {
   box-sizing: border-box;
-  padding-left: 40px;
+  margin-left: 40px;
   height: 60px;
+  display: flex;
+  border-bottom: 2px solid #dadada;
   .demo-tabs {
-    width: 100%;
+    width: 50%;
     :deep(.el-tabs__nav) {
       height: 60px;
       line-height: 60px;
@@ -99,18 +123,27 @@ const goBack = () => {
 }
 .bolog-title {
   padding: 0;
-  margin-left: 40px;
+  margin-left: 78px;
   line-height: 60px;
   height: 62px;
-  border-bottom: 2px solid #dadada;
   color: #383838;
   font-size: 14px;
   .title-box {
     display: flex;
+    div {
+      margin-right: 10px;
+    }
   }
+}
+.search{
+  margin-top: 12px;
+  margin-left: 80px;
 }
 .el-tabs__nav {
   height: 60xp;
   line-height: 60px;
+}
+.el-tabs__item is-top{
+  user-select: none
 }
 </style>

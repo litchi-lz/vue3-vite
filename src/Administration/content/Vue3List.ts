@@ -26,7 +26,7 @@ const Vue3List = [
   },
   {
     id: 3,
-    blogTitle: "vue打包Markdown文件报错",
+    blogTitle: "vue打包Markdown文件报错(webpack)",
     blogDescribe: "Cannot read property '__vueMarkdownOptions__' of undefined",
     mdId: "vue3-markdown",
     address: ' https://blog.csdn.net/weixin_42681555/article/details/121603656(使用),https://blog.csdn.net/weixin_42681555/article/details/121931367(误以为是node版本),',
@@ -54,6 +54,24 @@ const Vue3List = [
     watchCount: 51
   },
   {
+    id: 5,
+    blogTitle: "vue3 兄弟组件传值之mitt",
+    blogDescribe: "Vue2.x 使用 EventBus 事件总线进行兄弟组件通信，而在Vue3中事件总线模式已经被移除，官方建议使用外部的、实现了事件触发器接口的库,例如 mitt 或 tiny-emitter。",
+    mdId: "vue3-config",
+    createDate: "2022-8-12 17:13:43",
+    address: 'https://juejin.cn/post/7106311753717252132',
+    watchCount: 68
+  },
+  {
+    id: 5,
+    blogTitle: "vue3 ts vite项目 读取本地markdown文件,",
+    blogDescribe: "Vue3打包后,静态文件无法显示,初始路由为history",
+    mdId: "vue3-config",
+    createDate: "https://blog.csdn.net/weixin_45291937/article/details/125275996",
+    address: 'https://blog.csdn.net/weixin_45291937/article/details/125275996',
+    watchCount: 51
+  },
+  {
     id: 1,
     blogTitle: "关于Vue3中不使用单文件组件<script setup>出现的问题",
     blogDescribe: "无法使用动态参数在vuex中,及推荐写法",
@@ -65,7 +83,7 @@ const Vue3List = [
     id: 1,
     blogTitle: "Vue3中unplugin-auto-import的配置和eslint报错解决",
     blogDescribe: "找不到名称“ref”",
-    mdId: "vue3-setup",
+    mdId: "vue3-unpluginAutoImport",
     createDate: "2022-7-6 13:41:33",
     address: 'https://blog.csdn.net/sayUonly/article/details/123482912',
     watchCount: 8
@@ -73,6 +91,15 @@ const Vue3List = [
   {
     id: 1,
     blogTitle: "Vue3中添加一个包含 `declare module ‘xxxxx‘；",
+    blogDescribe: "找不到名称“ref”",
+    mdId: "vue3-setup",
+    createDate: "2022-7-6 13:41:33",
+    address: 'https://blog.csdn.net/m0_67391677/article/details/123395221',
+    watchCount: 8
+  },
+  {
+    id: 1,
+    blogTitle: "vite使用 unplugin-vue-components 自动注册插件后,  <component :is='parameter'></component>无法显示问题 ",
     blogDescribe: "找不到名称“ref”",
     mdId: "vue3-setup",
     createDate: "2022-7-6 13:41:33",

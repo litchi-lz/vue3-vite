@@ -22,6 +22,16 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           },
         ]
       },
+      {
+        path: '/album',
+        name: 'Album',
+        component: () => import("@/views/exhibition/album.vue")
+      },
+      {
+        path: '/accordion',
+        name: 'Accordion',
+        component: () => import("@/views/exhibition/accordion.vue")
+      },
 ]
 const router: Router = createRouter({
     history: createWebHashHistory(),

@@ -1,33 +1,25 @@
-// 一个 *：匹配当前目录下的文件
-// 两个 *：匹配当前目录及其嵌套的全部子目录下的文件
-// const requireComponent = import.meta.globEager('./library/*.vue')
-// const requireComponent = import.meta.glob('./**/*.md')
-const requireComponent = import.meta.glob('@/components/*.vue')
-// export default {
-//   install (Vue) {
-//     Object.keys(requireComponent).forEach(item => {
-//       const defaultObj = requireComponent[item].default
-//       Vue.component(defaultObj.name, defaultObj)
-//     })
-//   }
-// }
-console.log(requireComponent)
-
 //获取public目录下所有的文件信息
-const modulesFiles = import.meta.glob('@/components/*.vue')
-const pathList: any[] = [];
-// const pathList = []
-//遍历拿到所有的文件名称
-for (const path in modulesFiles) {
-    pathList.push(path)
-}
+const modulesFiles = import.meta.glob('@/Administration/article/**/*.md');
 export const mdArticle = function (Vue: any, opts = {}) {
-    pathList.forEach((path) => {
-        console.log(modulesFiles[path])
-        const component = modulesFiles[path].default;
-        
-        
-        Vue.component('hello', component)
+  //   for (const path in modulesFiles) {
+  //     modulesFiles[path]().then((mod) => {
+  //       let name = path.split('/').filter((item) => { return item.indexOf('-') != -1 })[0].split('.')[0].split('-');
+  //       let mdName = '';
+  //       name.forEach((itemName) => {
+  //         mdName += itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
+  //       })
+  //       // 使用内置的组件名称 进行全局组件注册
+  //       Vue.component(mdName, mod.default)
+  //     })
+  // }
+  Object.keys(modulesFiles).forEach(async (path) => {
+    let name = path.split('/').filter((item) => { return item.indexOf('-') != -1 })[0].split('.')[0].split('-');
+    let mdName = '';
+    name.forEach((itemName) => {
+      mdName += itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
     })
+    const MdComponent:any = await modulesFiles[path]()
+    Vue.component(mdName, MdComponent.default)
+  })
 }
 

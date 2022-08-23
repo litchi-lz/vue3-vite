@@ -20,7 +20,14 @@
       </div>
     </template>
     <div class="paging-pack" v-if="pagingBlog.length > 0">
-       <el-pagination :page-size="queryInfo.pagesize" :current-page="queryInfo.currentPage"  @current-change="currentChange" background layout="prev, pager, next" :total="queryInfo.total" />
+      <el-pagination
+        :page-size="queryInfo.pagesize"
+        :current-page="queryInfo.currentPage"
+        @current-change="currentChange"
+        background
+        layout="prev, pager, next"
+        :total="queryInfo.total"
+      />
     </div>
   </div>
 </template>
@@ -31,6 +38,8 @@ import muster from "@/Administration/content/muster";
 import { useRouter, useRoute } from "vue-router";
 import { userArticle } from "@/store/article";
 import { userPaging } from "@/store/paging";
+import { getCurrentInstance, ComponentInternalInstance } from "vue";
+const { appContext } = getCurrentInstance() as ComponentInternalInstance;
 const router = useRouter();
 const articleStore = userArticle();
 const pagingStore = userPaging();
@@ -53,9 +62,15 @@ type pagingType = {
   watchCount: number;
   address?: string;
 };
+interface searchType {
+  vaule: string;
+  crux: number;
+}
 const arraynct: pagingType[] = []; // 定义类型数组
+
 const pagingBlog = ref(arraynct);
 const sketchType = ref("");
+const searchKey = ref("");
 const queryInfo = reactive({
   currentPage: 1,
   pagesize: 5, //每页显示条数
@@ -75,11 +90,14 @@ watchEffect(() => {
   queryInfo.pagesize = pagingStore[sketchType.value].pageSize;
   let start = (queryInfo.currentPage - 1) * 5;
   let end = queryInfo.currentPage * 5;
-  console.log(blogs.value);
-  pagingBlog.value = blogs.value.slice(start, end);
+  if (searchKey.value == "") {
+    pagingBlog.value = blogs.value.slice(start, end);
+  } else {
+    queryInfo.total = 1; //此处后面需改进
+  }
 });
 
-const currentChange = (e:number) => {
+const currentChange = (e: number) => {
   const loading = ElLoading.service({
     lock: true,
     text: "Loading",
@@ -88,22 +106,55 @@ const currentChange = (e:number) => {
   setTimeout(() => {
     loading.close();
   }, 500);
-  pagingStore.changeTotal({ type: sketchType.value, attribute: "currentPage", value: e })
-  
+  pagingStore.changeTotal({ type: sketchType.value, attribute: "currentPage", value: e });
 };
 //详情
-const goDetails = (e:any) => {
-  articleStore.setBloge = e.blogTitle
+const goDetails = (e: any) => {
+  console.log(e);
+  articleStore.setBloge = e.blogTitle;
   let ListInformation = { blogeTitle: e.blogTitle, mdId: e.mdId };
   localStorage.setItem("articleInfo", JSON.stringify(ListInformation));
   if (ListInformation.mdId.indexOf("CSS") != -1) {
     //去CSS单独页面
     let mdIdname = ListInformation.mdId.split("-")[1];
     let name = mdIdname[0].toUpperCase() + mdIdname.substr(1);
-    console.log();
+    console.log(name);
     router.push({ name: name, params: { mdId: e.mdId } });
   } else {
     router.push({ path: "/substance", query: { mdId: e.mdId } });
+  }
+};
+onMounted(() => {
+  appContext.config.globalProperties.$mitt.on("searchEvent", (parame: searchType) => {
+    console.log(parame);
+    resetPaging(parame);
+  });
+});
+const resetPaging = (parame: searchType) => {
+  console.log(parame);
+  const loading = ElLoading.service({
+    lock: true,
+    text: "Loading",
+    background: "rgba(0, 0, 0, 0.7)",
+  });
+  setTimeout(() => {
+    loading.close();
+  }, 500);
+  let start = 0; //此处之后如何优化,搜索关键字有多条
+  let end = 5; //
+  if (parame.crux == 0) {
+    pagingBlog.value = blogs.value.slice(start, end);
+    queryInfo.total = blogs.value.length;
+  } else {
+    let keyVaule = parame.vaule;
+    searchKey.value = keyVaule;
+    const searchList = [];
+    blogs.value.forEach((item: any) => {
+      if (item.blogTitle.indexOf(keyVaule) !== -1) {
+        searchList.push(item);
+      }
+    });
+    pagingBlog.value = searchList.slice(start, end);
   }
 };
 onBeforeUnmount(() => {

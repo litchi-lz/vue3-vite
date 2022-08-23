@@ -7,29 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
+    ElInput: typeof import('element-plus/es')['ElInput']
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    MdEdtior: typeof import('./src/components/MdEdtior/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TreeStructure: typeof import('./src/Administration/article/beCurrent/tree-structure.md')['default']
-    Vue2Animation: typeof import('./src/Administration/article/Vue2/vue2-animation.md')['default']
-    Vue2Template: typeof import('./src/Administration/article/Vue2/vue2-template.md')['default']
-    Vue3AlterStyle: typeof import('./src/Administration/article/Vue3/vue3-alterStyle.md')['default']
-    Vue3Config: typeof import('./src/Administration/article/Vue3/vue3-config.md')['default']
-    Vue3Markdown: typeof import('./src/Administration/article/Vue3/vue3-markdown.md')['default']
-    Vue3MonitorVuex: typeof import('./src/Administration/article/Vue3/vue3-monitorVuex.md')['default']
-    Vue3Scss: typeof import('./src/Administration/article/Vue3/vue3-scss.md')['default']
-    Vue3Setup: typeof import('./src/Administration/article/Vue3/vue3-setup.md')['default']
-    VueLifeCycle: typeof import('./src/Administration/article/Vue2/vue-lifeCycle.md')['default']
-    WidelyTool: typeof import('./src/Administration/article/Widely/widely-tool.md')['default']
-    WxEcharts: typeof import('./src/Administration/article/WeChat/wx-echarts.md')['default']
-    WxGis: typeof import('./src/Administration/article/WeChat/wx-gis.md')['default']
-    WxPenetrate: typeof import('./src/Administration/article/WeChat/wx-penetrate.md')['default']
-    WxRequest: typeof import('./src/Administration/article/WeChat/wx-request.md')['default']
-    WxWatch: typeof import('./src/Administration/article/WeChat/wx-watch.md')['default']
   }
 }
